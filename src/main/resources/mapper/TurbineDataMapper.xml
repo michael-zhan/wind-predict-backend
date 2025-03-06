@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.windpredictbackend.mapper.TurbineDataMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.windpredictbackend.model.TurbineData">
+            <id property="turb_id" column="turb_id" jdbcType="INTEGER"/>
+            <id property="data_time" column="data_time" jdbcType="TIMESTAMP"/>
+            <result property="wind_speed" column="wind_speed" jdbcType="FLOAT"/>
+            <result property="prepower" column="prepower" jdbcType="FLOAT"/>
+            <result property="wind_direction" column="wind_direction" jdbcType="FLOAT"/>
+            <result property="temperature" column="temperature" jdbcType="FLOAT"/>
+            <result property="humidity" column="humidity" jdbcType="FLOAT"/>
+            <result property="pressure" column="pressure" jdbcType="FLOAT"/>
+            <result property="round_a_ws" column="round_a_ws" jdbcType="FLOAT"/>
+            <result property="round_a_power" column="round_a_power" jdbcType="FLOAT"/>
+            <result property="yd15" column="yd15" jdbcType="FLOAT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        turb_id,data_time,wind_speed,
+        prepower,wind_direction,temperature,
+        humidity,pressure,round_a_ws,
+        round_a_power,yd15
+    </sql>
+
+    <select id="selectByTurbId" resultMap="BaseResultMap" parameterType="int">
+        SELECT *
+        FROM turbine_data
+        WHERE turb_id = #{turbId}
+    </select>
+
+    <select id="selectByTurbIdAndDateTimeRange" resultMap="BaseResultMap" parameterType="map">
+        SELECT *
+        FROM turbine_data
+        WHERE turb_id = #{turbId}
+          AND data_time BETWEEN #{startTime} AND #{endTime}
+    </select>
+</mapper>
